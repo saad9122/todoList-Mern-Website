@@ -1,0 +1,31 @@
+div.sign-in {
+
+
+}
+.sign-in-input {
+    height: 3.5rem;
+    padding:1rem 1rem ;
+    border-radius: 0.3rem;
+    border: 1px solid #D8D8D8;
+}
+
+.sign-in-input:focus{
+    outline: none;
+    border: 2px solid #686868;
+
+}
+
+.overlay {
+    position: absolute;
+    z-index: 1010;
+    opacity: 0.6;
+}
+
+.sign-up-input {
+    height: 3rem;
+    width: 100%;
+    padding:1rem 1rem ;
+    border-radius: 0.3rem;
+    border: 1px solid #D8D8D8;
+
+}
