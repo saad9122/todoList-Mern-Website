@@ -1,55 +1,73 @@
+import { asyncAddTodo, getAllTodosThunk } from '../actions/asyncAPI.js';
 import {createSlice} from '@reduxjs/toolkit'
-import { addTodo, getAllTodosThunk } from '../actions/asyncAPI';
+
 
 const options = {
     name: 'todos',
     initialState : {
         allTodos: [],
         isLoading: false,
-        hasError: false
+        hasError: false,
+        sortBy:"AtoZ",
     },
     reducers: {
-        addNewTodo: (state,action) => {
-             state.push(action.payload)
+        editTodo: (state,action) => {
+          state.allTodos = state.allTodos.map(todo => todo._id === action.payload._id ? action.payload : todo)
         },
+        deleteTodo: (state,action) => {
+
+          state.allTodos = state.allTodos.filter(todo => todo._id !== action.payload._id)
+        },
+        toggleStatus: (state,action) => {
+
+          state.allTodos = state.allTodos.map(todo => todo._id === action.payload._id ? {...todo,status: action.payload.status} : todo)
+        },
+
+        deleteDoneTodos: (state,action) => {
+
+          state.allTodos = state.allTodos.filter(todo => !todo.status)
+        },
+        sortTodosBy: (state,action) => {
+          state.sortBy = action.payload
+        }
 },
 extraReducers: {
-  [addTodo.pending]: (state, action) => {
+  "todo/addNewTodo/pending": (state, action) => {
       state.isLoading = true;
       state.hasError = false;
     },
-    [addTodo.fulfilled]: (state, action) => {
-      console.log("AddTodo Fullfilled")
+    "todo/addNewTodo/fulfilled": (state, action) => {
       state.allTodos.push(action.payload)
       state.isLoading = false;
       state.hasError = false;
     },
-    [addTodo.rejected]: (state, action) => {
+    "todo/addNewTodo/rejected": (state, action) => {
       state.isLoading = false;
       state.hasError = true;
     },
-    [getAllTodosThunk.pending]: (state, action) => {
-      console.log("All todos Pending")
+    "todo/getAllTodos/pending": (state, action) => {
       state.isLoading = true;
       state.hasError = false;
     },
-    [getAllTodosThunk.fulfilled]: (state, action) => {
-      console.log(state.allTodos)
+    "todo/getAllTodos/fulfilled": (state, action) => {
       state.allTodos = action.payload;
       state.isLoading = false;
       state.hasError = false;
     },
-    [getAllTodosThunk.rejected]: (state, action) => {
+    "todo/getAllTodos/rejected": (state, action) => {
       state.isLoading = false;
       state.hasError = true;
     }
+}
 
-}}
+}
 
 export const todosSlice = createSlice(options)
 
-export const selectAllTodos = state => state.todos.allTodos;
+export const selectAllTodos = state => state.todos;
 
-export const {getAllTodos,addNewTodo,editTodo} = todosSlice.actions;
+export const selectSortBy = state => state.todos.sortBy;
+
+export const {getAllTodos,addNewTodo,editTodo,deleteTodo,toggleStatus,deleteDoneTodos,sortTodosBy} = todosSlice.actions;
 
 export default todosSlice.reducer

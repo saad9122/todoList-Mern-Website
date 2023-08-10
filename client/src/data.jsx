@@ -20,7 +20,27 @@ const year = () => {
 
 export const totalDays = dates()
 export const totalYears = year().reverse()
-export const totalMonths = ['Jan','Feb','Mar','Apr','May','Jun','july','Aug','Sep','Oct','Nov','Dec']
+export const totalMonths = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+
+export const totalHours = [0,1,2,3,4,5,6,7,8,9,10,11,12]
+
+
+const minutes = () => {
+    const minutesArray = []
+    for (let i=0; i<60; i++) {
+
+        minutesArray.push(i)
+
+    }
+
+    return minutesArray
+}
+
+export const totalMinutes = minutes()
+
+export const totalMeridiem = ["AM","PM"]
+
+export const totalYearsTodos = [2023,2024,2025]
 
 export const projectNames = ['Home','School','Work']
 
@@ -52,3 +72,5 @@ export const Todos = [
 
     }
 ]
+
+export const API_URL = 'http://localhost:5000' 

@@ -1,15 +1,31 @@
 import React, { useState } from 'react'
 import EditNoteIcon from '@mui/icons-material/EditNote';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/reducers/userSlice';
+import { useNavigate } from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export const Navbar = () => {
 
     const [showDropdownContent,setShowDropdownContent] = useState(false)
+    const [filterValue,setFIlterValue] = useState(null)
+    const {sortValue,setSortValue} = useState(null)
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const handleDropdown = () => {
-        setShowDropdownContent(!showDropdownContent)
+    // const handleDropdown = () => {
+    //     setShowDropdownContent(!showDropdownContent)
 
+    // }
+
+    const handleLogout = () => {
+
+        localStorage.removeItem("userInfo")
+        dispatch(logout())
+
+        navigate("/login")
+        
     }
 
   return (
@@ -18,10 +34,14 @@ export const Navbar = () => {
             <EditNoteIcon fontSize="large" />
             <p className='text-4xl'>TodoList</p>
         </div> 
+
         <div className='flex space-x-1 relative cursor-pointer'
-        onClick={handleDropdown}
         >
-            <p> Dropdown </p>
+
+            <button
+            onClick={handleLogout}
+            >Log out  <LogoutIcon /></button>
+            {/* <p> Dropdown </p>
             <p className={`${showDropdownContent ? 'rotate-180' : ''} transition-all`}><KeyboardArrowDownIcon /></p>
 
            { showDropdownContent && <div 
@@ -29,7 +49,7 @@ export const Navbar = () => {
                 <p>Profile</p>
                 <p>Log out</p>
 
-            </div>}
+            </div>} */}
 
 
         </div>

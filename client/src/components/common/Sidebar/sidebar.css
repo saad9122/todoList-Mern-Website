@@ -1,5 +1,23 @@
 div.sidebar {
     width: 300px;
-    height: calc(100vh - 72px);
+    height: calc(100vh); 
     padding: 0.5rem 1rem;
+    overflow: hidden;
 }
+
+ @media (max-width: 600px) {
+    div.sidebar {
+        height: auto;
+        width: 100%;
+    }
+    
+} 
+
+
+@media (max-width: 600px) {
+    div.sidebar-content {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+} 
