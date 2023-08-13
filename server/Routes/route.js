@@ -7,7 +7,6 @@ router.get('/' ,(req,res) => {
     res.send('Hello world')
 })
 
-
 router.get('/todos',getAllTodos)
 
 router.post('/todos',addNewTodo)
